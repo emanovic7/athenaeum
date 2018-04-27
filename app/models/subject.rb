@@ -1,8 +1,8 @@
 class Subject < ActiveRecord::Base
 
-  has_many :book_subjects
-  has_many :books, through: :book_subjects
-  has_many :authors, through: :books
+  has_many :books
+  has_many :author_subjects
+  has_many :authors, through: :author_subjects
 
 
     def self.find_by_slug(slug)
