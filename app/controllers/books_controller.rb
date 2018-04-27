@@ -35,4 +35,15 @@ class BooksController < ApplicationController
     end
   end
 
+  #individual book, 
+  #is this necessary?!!
+  get '/books/:slug' do
+    if logged_in?
+      @book = Book.find_by_slug(params[:slug])
+      erb :'/books/show_book'
+    else
+      redirect to '/login'
+    end
+  end
+
 end
