@@ -1,0 +1,9 @@
+<p>The following books are in <%= @subject.name %></p>
+
+<% @subject.books.each do |book| %>
+<li>
+  <%= book.name %>
+</li>
+  <% end %>
+
+#add number of books, authors (number of work in this genre) for this subject, 
