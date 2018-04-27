@@ -1,4 +1,8 @@
+require 'rack-flash'
+
+
 class BooksController < ApplicationController
+  use Rack::Flash
 
   #get user's books
   get '/books' do
