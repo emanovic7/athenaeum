@@ -35,12 +35,61 @@ class BooksController < ApplicationController
     end
   end
 
-  #individual book, 
+  #individual book,
   #is this necessary?!!
   get '/books/:slug' do
     if logged_in?
       @book = Book.find_by_slug(params[:slug])
       erb :'/books/show_book'
+    else
+      redirect to '/login'
+    end
+  end
+
+  #edit book
+ get '/books/:slug/edit' do
+   if logged_in?
+     @book = Book.find_by_slug(params[:slug])
+       if @book && @book.user == current_user
+         erb :'books/edit_book'
+       else
+         redirect to '/books'
+       end
+   else
+     redirect to '/login'
+   end
+ end
+
+ #process editting
+ patch '/books/:slug' do
+   if logged_in?
+     if params[:title] == "" || params[:author] == "" || params[:subject] == ""
+       redirect to '/books/#{params[:slug]}/edit'
+   else
+      @book = Book.find_by_slug(params[:slug])
+       if @book && @book.user == current_user
+         if @book.update(content: params[:content])
+           redirect to "/books/#{@book.slug}"
+         else
+           redirect to "/books/#{@book.slug}/edit"
+         end
+       else
+         redirect to '/books'
+       end
+     end
+     else
+       redirect to '/login'
+     end
+ end
+
+ #delete book
+  get '/books/:slug/delete' do
+    if logged_in?
+      @book = Book.find_by_slug(params[:slug])
+      if @book && @book.user == current_user
+        @book.delete
+      end
+      redirect to '/books'
     else
       redirect to '/login'
     end
