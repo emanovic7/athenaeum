@@ -20,7 +20,7 @@ class UsersController < ApplicationController
    if !logged_in?
      erb :'/users/login'
    else
-     redirect to '/books/books_list'
+     erb :'/users/personal'
    end
  end
 
