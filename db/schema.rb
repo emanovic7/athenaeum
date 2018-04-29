@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_04_27_180330) do
+ActiveRecord::Schema.define(version: 2018_04_29_080853) do
 
   create_table "author_subjects", force: :cascade do |t|
     t.integer "author_id"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 2018_04_27_180330) do
     t.string "name"
     t.integer "author_id"
     t.integer "subject_id"
+    t.integer "user_id"
   end
 
   create_table "subjects", force: :cascade do |t|
