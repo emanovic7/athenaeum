@@ -1,7 +1,6 @@
 class Subject < ActiveRecord::Base
 
   has_many :books
-  has_many :subjects
   has_many :author_subjects
   has_many :authors, through: :author_subjects
 
