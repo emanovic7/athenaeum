@@ -2,7 +2,7 @@
 
 <p>These are the books currently in your library</p></br>
 
-<% current_user.books.all.each do |book| %>
+<% @books.all.each do |book| %>
   <%= book.name %>
 <% end %>
 

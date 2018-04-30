@@ -5,43 +5,43 @@ class UsersController < ApplicationController
   #fetch user's homepage
   get '/users/:slug' do
     @user = User.find_by_slug(params[:slug])
-
     erb :'/users/personal'
   end
 
+  #Signing Up
   get '/register' do
-    if current_user
-      erb :'/users/personal'
-    else
+    if !logged_in?
       erb :'/users/register'
+    else
+      erb :'/users/personal'
     end
  end
 
- post '/register' do
+         post '/register' do
+             if params[:user_name] == "" || params[:email] == "" || params[:password_digest] == ""
+               redirect to '/register'
+             else
+               @user=User.new(user_name: params[:user_name], email: params[:email], password: params[:password_digest])
+               @user.save
+               session[:user_id] = @user.id
+               redirect to '/books'
+             end
+         end
 
-     if params[:user_name] == "" || params[:email] == "" || params[:password_digest] == ""
-       redirect to '/register'
-     else
-       @user=User.create(user_name: params[:user_name], email: params[:email], password: params[:password_digest])
-       session[:user_id] = @user.id
-       erb :'/users/personal'
-     end
- end
-
-
+  #Loggin In
  get '/login' do
-   if current_user
-     erb :'/users/personal'
-   else
+   if !logged_in?
      erb :'/users/login'
+   else
+     erb :'books/books_list'
    end
  end
 
  post '/login' do
    @user = User.find_by(user_name: params[:user_name])
-     if @user !=nil && @user.password == params[:password]
+       if user && user.authenticate(params[:password])
        session[:user_id] = @user.id
-       erb :'/users/personal'
+       redirect to '/books'
      else
        redirect to '/login'
      end
@@ -58,8 +58,8 @@ class UsersController < ApplicationController
    end
  end
 
- #list user's books' subjects
 
+ #list user's books' subject
  get '/users/books/subjects' do
    if logged_in?
      @subjects = Subject.all #make subjects controller?
