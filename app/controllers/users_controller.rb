@@ -7,12 +7,12 @@ class UsersController < ApplicationController
   end
 
   get '/register' do
-    if !logged_in?
+#    if !logged_in?
      erb :'/users/register'
-   else
-     session[:user_id] = @user.id
-     redirect to '/users/:slug'
-   end
+#   else
+#     session[:user_id] = @user.id
+#     redirect to '/users/:slug'
+#   end
  end
 
  post '/register' do
@@ -32,7 +32,6 @@ class UsersController < ApplicationController
      erb :'/users/login'
    else
      @user = User.find_by(user_name: params[:user_name])
-     session[:user_id] = @user.id
 
      erb :'/users/personal'
    end
