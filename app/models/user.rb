@@ -7,7 +7,8 @@ class User < ActiveRecord::Base
   has_many :authors, through: :books
   has_many :subjects, through: :books
 
-
+#find user by id, not slug
+=begin
     def self.find_by_slug(slug)
       self.all.find do |user|
         user.slug == slug
@@ -19,5 +20,6 @@ class User < ActiveRecord::Base
         self.user_name.gsub(" ","-").downcase
       end
     end
+=end
 
 end

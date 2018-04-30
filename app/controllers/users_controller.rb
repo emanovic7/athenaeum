@@ -3,10 +3,16 @@ require 'pry'
 class UsersController < ApplicationController
 
   #fetch user's homepage
-  get '/users/:slug' do
-    @user = User.find_by_slug(params[:slug])
-    erb :'/users/personal'
+  get '/users/:id' do
+    if logged_in?
+      redirect to '/books'
+    else
+    @user = User.find(params[:id])
+      if !@user.nil? && @user == current_user
+      erb :'/users/personal'
+    end
   end
+
 
   #Signing Up
   get '/register' do
