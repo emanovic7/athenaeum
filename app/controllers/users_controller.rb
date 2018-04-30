@@ -1,10 +1,17 @@
 class UsersController < ApplicationController
 
+  #fetch user's homepage
+  get '/users/:slug' do
+    @user = User.find_by_slug(params[:slug])
+    erb :'/users/personal'
+  end
+
   get '/register' do
     if !logged_in?
      erb :'/users/register'
    else
-     erb :'/users/personal'
+     session[:user_id] = @user.id
+     redirect to '/users/:slug'
    end
  end
 

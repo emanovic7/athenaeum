@@ -14,8 +14,8 @@ class User < ActiveRecord::Base
     end
 
     def slug
-      unless name.nil?
-        self.name.gsub(" ","-").downcase
+      unless user_name.nil?
+        self.user_name.gsub(" ","-").downcase
       end
     end
 
