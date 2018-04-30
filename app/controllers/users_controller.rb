@@ -69,6 +69,14 @@ class UsersController < ApplicationController
    end
  end
 
+ get '/home' do
+   if current_user
+     erb :'/users/personal'
+   else
+     erb :'/users/login'
+   end
+ end
+
 
 
 end
