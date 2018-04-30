@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   #fetch user's homepage
   get '/users/:slug' do
     @user = User.find_by_slug(params[:slug])
+
     erb :'/users/personal'
   end
 
@@ -29,12 +30,10 @@ class UsersController < ApplicationController
 
 
  get '/login' do
-   if !logged_in?
-     erb :'/users/login'
-   else
-     @user = User.find_by(user_name: params[:user_name])
-
+   if current_user
      erb :'/users/personal'
+   else
+     erb :'/users/login'
    end
  end
 
