@@ -1,3 +1,5 @@
+require 'pry'
+
 class UsersController < ApplicationController
 
   #fetch user's homepage
@@ -7,12 +9,11 @@ class UsersController < ApplicationController
   end
 
   get '/register' do
-#    if !logged_in?
-     erb :'/users/register'
-#   else
-#     session[:user_id] = @user.id
-#     redirect to '/users/:slug'
-#   end
+    if current_user
+      erb :'/users/personal'
+    else
+      erb :'/users/register'
+    end
  end
 
  post '/register' do

@@ -12,6 +12,7 @@ gem "bcrypt"
 gem 'shotgun'
 gem 'pry'
 gem 'tux'
+gem 'pry-rails'
 
 group :test do
   gem 'launchy'
