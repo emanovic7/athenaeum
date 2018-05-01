@@ -4,22 +4,27 @@ class UsersController < ApplicationController
 
   #fetch user's homepage
   get '/users/:id' do
-    if logged_in?
-      redirect to '/books'
-    else
+    if !logged_in?
+      redirect '/login'
+    end
+
     @user = User.find(params[:id])
       if !@user.nil? && @user == current_user
-      erb :'/users/personal'
-    end
+        erb :'/users/personal'
+      else
+        redirect to '/login'
+      end
+
   end
+
 
 
           #Signing Up
           get '/register' do
-            if !session[:user_id]?
+            if !session[:user_id]
               erb :'/users/register'
             else
-              redirect to '/books'
+              erb '/users/personal'
             end
          end
 
@@ -29,25 +34,25 @@ class UsersController < ApplicationController
              else
                @user=User.create(user_name: params[:user_name], email: params[:email], password: params[:password_digest])
                session[:user_id] = @user.id
-               redirect to '/books'
+               erb :'/users/personal'
              end
          end
 
 
   #Loggin In
  get '/login' do
-   if !session[:user_id]
-     erb :'/users/login'
-   else
-     redirect to '/books'
-   end
+  if !session[:user_id]
+    erb :'/users/login'
+  else
+    redirect to '/users/personal'
+  end
  end
 
  post '/login' do
    user = User.find_by(user_name: params[:user_name])
        if user && user.authenticate(params[:password])
        session[:user_id] = user.id
-       redirect to '/books'
+       redirect '/books'
      else
        redirect to '/login'
      end
@@ -75,7 +80,9 @@ class UsersController < ApplicationController
  end
 
  get '/home' do
-   if session[:user_id]
+   if logged_in?
+     @user = User.find(session[:user_id])
+     @user.id = session[:user_id]
      erb :'/users/personal'
    else
      erb :'/users/login'

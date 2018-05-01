@@ -6,13 +6,14 @@ class BooksController < ApplicationController
 
   #get user's books
   get '/books' do
-    if logged_in?
+    if !logged_in?
+      erb :'users/login'
+    else
       @books = Book.all
       erb :'books/books_list'
-    else
-      redirect to '/login'
     end
   end
+
 
 
   #add new book
@@ -27,7 +28,7 @@ class BooksController < ApplicationController
 #process submitted book info
   post '/books/new' do
     if logged_in?
-      @book = Book.create(name: params["book title"])
+      @book = current_user.books.create(name: params["book title"])
       @book.author = Author.find_or_create_by(name: params["author name"])
       @book.subject_ids = params[:subjects]
       @book.save
@@ -54,8 +55,8 @@ class BooksController < ApplicationController
   #edit book
  get '/books/:slug/edit' do
    if logged_in?
-     @book = Book.find_by_slug(params[:slug])
-       if @book && @book.user == current_user
+     @book = Book.find_by_id(params[:id])
+       if @book.user_id == current_user.id
          erb :'books/edit_book'
        else
          redirect to '/books'

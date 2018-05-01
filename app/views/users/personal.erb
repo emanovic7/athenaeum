@@ -1,8 +1,8 @@
-<p>Welcome to your personal page, <%=current_user.user_name %><p></br>
+<p>This to your library, <%=@user.user_name %><p></br>
 
 <p>These are the books currently in your library</p></br>
 
-<% @books.all.each do |book| %>
+<% @user.books.each do |book| %>
   <%= book.name %>
 <% end %>
 
