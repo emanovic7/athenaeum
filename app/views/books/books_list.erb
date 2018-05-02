@@ -1,7 +1,13 @@
 <% if @user.books.count == 0 %>
   <%= "Your library is empty, add books here"%>
   <p><a href='/books/new'>Add New Book</a></p>
-<% end %>
+<% elsif @user.books.count == 1 %>
+  <%= "There is "%><%=@user.books.count%><%=" book in your library"%>
+<%elsif%>
+  <%= "There are "%><%=@user.books.count%><%=" books in your library"%>
+<%end%>
+
+
 
 <% @user.books.all.each do |book| %>
   <ul>
