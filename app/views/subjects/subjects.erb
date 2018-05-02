@@ -1,7 +1,12 @@
-<p>These are your subjects</p>
+<h1>Subjects</h1>
 
+<p>These are your subjects:</p>
   <% @subjects.all.each do |subject| %>
-  <div>
-    <a href="/subjects/<%= subject.slug %>"><%= subject.name %></a>
-  </div>
+    <ul>
+      <li>
+        <a href="/subjects/<%= subject.slug %>"><%= subject.name %></a>
+      </li>
+    </ul>
   <%end %>
+
+<a href="/home">Home</a>

@@ -10,9 +10,9 @@
 
 
 <% @user.books.all.each do |book| %>
-  <ul>
+  <ol>
     <li>
-      Title: <a href="books/<%=book.slug%>"><%= book.name %></a></br>
+      Title: <a href="books/<%=book.id%>"><%= book.name %></a></br>
       Author: <a href="authors/<%=book.author.id%>"><%= book.author.name %></a></br>
       <p>Subject(s):
       <% book.subjects.each do |subject| %>
@@ -20,7 +20,7 @@
       <% end %>
       </p>
     </li>
-  </ul>
+  </ol>
 <% end %>
 
 <p><a href='/home'>Home</a></p>

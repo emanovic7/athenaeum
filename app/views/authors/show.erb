@@ -1,10 +1,10 @@
-<%= @author.name %></br>
+Books by: <%= @author.name %></br>
 <% @author.books.each do |book| %>
-<ul>
+<ol>
   <li>
     <a href="/books/<%=book.id%>"><%= book.name %></a></br>
   </li>
-</ul>
+</ol>
 <% end %>
 
 <p><a href='/home'>Home</a></p>

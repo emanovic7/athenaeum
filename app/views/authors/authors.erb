@@ -1,9 +1,11 @@
 <h1>Authors</h1>
-
+<h3>These are the Authors in your library:</h3>
 <% @user.authors.all.each do |author| %>
-<div>
-  <a href="/authors/<%=author.id%>>"><%= author.name %></a>
-</div>
+<ul>
+  <li>
+    <a href="/authors/<%=author.id%>>"><%= author.name %></a>
+  </li>
+</ul>
 <% end %>
 
 <p><a href='/home'>Home</a></p>

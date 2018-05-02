@@ -28,7 +28,7 @@ class BooksController < ApplicationController
 #process submitted book info
   post '/books/new' do
     if logged_in?
-      @book = current_user.books.create(name: params["book title"])
+      @book = current_user.books.find_or_create_by(name: params["book title"])
       @book.author = Author.find_or_create_by(name: params["author name"])
       @book.subject_ids = params[:subjects] || @book.subject = params[:subject]
       @book.save
@@ -44,7 +44,7 @@ class BooksController < ApplicationController
   #individual book,
   #is this necessary?!!
   get '/books/:id' do
-    if logged_in? && @user == current_user
+    if logged_in? || current_user
       @book = Book.find_by_id(params[:id])
       erb :'/books/show_book'
     else
@@ -100,5 +100,6 @@ class BooksController < ApplicationController
       redirect to '/login'
     end
   end
+
 
 end
