@@ -30,7 +30,7 @@ class BooksController < ApplicationController
     if logged_in?
       @book = current_user.books.create(name: params["book title"])
       @book.author = Author.find_or_create_by(name: params["author name"])
-      @book.subject_ids = params[:subjects]
+      @book.subject_ids = params[:subjects] || @book.subject = params[:subject]
       @book.save
 
       flash[:message] = "New Book Added!"

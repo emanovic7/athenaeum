@@ -2,7 +2,7 @@ class SubjectsController < ApplicationController
 
   #show all subjects
   get '/subjects' do
-   if logged_in?
+   if logged_in? && @user = current_user
      @subjects = Subject.all
      erb :'subjects/subjects'
    else
@@ -12,8 +12,10 @@ class SubjectsController < ApplicationController
 
  #show subject by slug
  get '/subjects/:slug' do
-   @subject = Subject.find_by_slug(params[:slug])
-   erb :'/subjects/show_subject'
+   if logged_in? && @user = current_user
+     @subject = Subject.find_by_slug(params[:slug])
+     erb :'/subjects/show_subject'
+   end
  end
 
 

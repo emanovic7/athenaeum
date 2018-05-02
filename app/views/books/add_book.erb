@@ -5,8 +5,10 @@
   <label>Author Name: </label></br>
     <input type="text" name="author name"></br>
 
-    
-  <label> Subjects: </label>
+  <label>Subject: </label></br>
+    <input type="text" name="subject"></br>
+
+  <label>Or select from: </label>
     <% Subject.all.each do |subject| %>
     <input id="<%= subject.name %>" type="checkbox" name="subjects[]" value="<%= subject.id %>">
     <% end %>

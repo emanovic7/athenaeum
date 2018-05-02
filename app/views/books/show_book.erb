@@ -8,13 +8,11 @@
 
 <p>Author: <a href="/authors/<%= @book.author.slug %>"> <%= @book.author.name %> </a></p>
 
-<p>Subject(s):</p>
+<p>Subject(s):
 <% @book.subjects.each do |subject| %>
-<div>
-  <a href="/subjects/<%= subject.slug %>"><%= subject.name %> </a>
-</div>
+  <a href="/subjects/<%= subject.slug %>"><%= subject.name %></a>
 <% end %>
-
+</p>
 
 <br></br>
 <p><a href='/books/:slug/edit'>Edit Book</a></p>
