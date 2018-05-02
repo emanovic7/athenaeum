@@ -2,8 +2,8 @@
 
 <% @subject.books.each do |book| %>
 <li>
-  <%= book.name %>
+  <a href="/books<%=book.id%>"><%= book.name %></a>
 </li>
   <% end %>
 
-#add number of books, authors (number of work in this genre) for this subject, 
+#add number of books, authors (number of work in this genre) for this subject,

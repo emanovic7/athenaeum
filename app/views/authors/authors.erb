@@ -2,7 +2,7 @@
 
 <% @user.authors.all.each do |author| %>
 <div>
-  <a href='/authors/:id'><%= author.name %></a>
+  <a href="/authors/<%=author.id%>>"><%= author.name %></a>
 </div>
 <% end %>
 

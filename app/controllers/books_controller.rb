@@ -44,7 +44,7 @@ class BooksController < ApplicationController
   #individual book,
   #is this necessary?!!
   get '/books/:id' do
-    if logged_in?
+    if logged_in? && @user == current_user
       @book = Book.find_by_id(params[:id])
       erb :'/books/show_book'
     else

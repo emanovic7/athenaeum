@@ -8,7 +8,7 @@ class UsersController < ApplicationController
       redirect '/login'
     end
 
-    @user = User.find(params[:id])
+    @user = User.find_by_id(params[:id])
       if !@user.nil? && @user == current_user
         erb :'/users/personal'
       else
