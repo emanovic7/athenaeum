@@ -1,4 +1,6 @@
-<p>The following books are in <%= @subject.name %></p>
+<p>You have <%=@subject.books.count%> book(s) in <%= @subject.name %>
+  by <%=@subject.authors.count%>
+</p>
 
 <% @subject.books.each do |book| %>
 <li>

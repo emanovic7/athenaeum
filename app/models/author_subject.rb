@@ -1,4 +1,4 @@
-class AuthorSubect < ActiveRecord::Base
+class AuthorSubject < ActiveRecord::Base
 
   belongs_to :author
   belongs_to :subject

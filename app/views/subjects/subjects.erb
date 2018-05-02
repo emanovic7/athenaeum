@@ -2,6 +2,6 @@
 
   <% @subjects.all.each do |subject| %>
   <div>
-    <%=subject.name %>
+    <a href="/subjects/<%= subject.slug %>"><%= subject.name %></a>
   </div>
   <%end %>
