@@ -1,9 +1,7 @@
 <p>This to your library, <%=@user.user_name %><p></br>
 
-<p>These are the books currently in your library</p></br>
+<a href="/books">Your Books</a></br>
+<a href="/authors">Your Authors</a></br>
 
-<% @user.books.each do |book| %>
-  <%= book.name %>
-<% end %>
 
 <p><a href='/books/new'>Add New Book</a></p></br>

@@ -3,8 +3,17 @@ require 'rack-flash'
 class AuthorsController < ApplicationController
   use Rack::Flash
 
+  get '/authors/:id' do
+    if logged_in? && @user = current_user
+      @author = Author.find_by_id(params[:id])
+      erb :'/authors/show'
+    else
+      redirect to '/login'
+    end
+  end
+
   get '/authors' do
-    if logged_in?
+    if logged_in? && @user = current_user
       @authors = Author.all
       erb :'/authors/authors'
     else

@@ -1,7 +1,7 @@
 <h1>Authors</h1>
 
-<% @authors.all.each do |author| %>
+<% @user.authors.all.each do |author| %>
 <div>
-  <a href='/authors/:slug'><%= author.name %></a>
+  <a href='/authors/:id'><%= author.name %></a>
 </div>
 <% end %>

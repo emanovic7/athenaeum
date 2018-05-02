@@ -6,12 +6,12 @@ class BooksController < ApplicationController
 
   #get user's books
   get '/books' do
-    if !logged_in?
-      erb :'users/login'
-    else
-      @books = Book.all
-      erb :'books/books_list'
-    end
+  if logged_in? && @user = current_user
+    @books = Book.all
+    erb :'/books/books_list'
+  else
+    redirect to '/login'
+  end
   end
 
 
@@ -43,9 +43,9 @@ class BooksController < ApplicationController
 
   #individual book,
   #is this necessary?!!
-  get '/books/:slug' do
+  get '/books/:id' do
     if logged_in?
-      @book = Book.find_by_slug(params[:slug])
+      @book = Book.find_by_id(params[:id])
       erb :'/books/show_book'
     else
       redirect to '/login'
