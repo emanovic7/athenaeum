@@ -16,5 +16,11 @@
 
 <br></br>
 <p><a href='/books/:slug/edit'>Edit Book</a></p>
-<p><a href='/books/:slug/delete'>Delete Book</a></p></br>
+
+<form method="post" action="/books/<%=@book.id%>/delete">
+  <input id="hidden" type="hidden" name="_method" value="DELETE">
+  <input type="submit" value="Delete Book">
+</form>
+</br>
+
 <p><a href='/home'>Home</a></p>
