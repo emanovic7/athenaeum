@@ -6,16 +6,20 @@
 <p>Current Book</p>
 <p>Title: <%= @book.name %></p>
 
-<p>Author: <%= @book.author.name %> </a></p>
+<% if @book.author == nil || @book.subjects == nil%>
+  <p>Missing some information, edit <a href="/books/<%=@book.id%>"><%=@book.name%></p></a>
+<% else %>
 
-<p>Subject(s):
-<% @book.subjects.each do |subject| %>
-  <a href="/subjects/<%= subject.slug %>"><%= subject.name %></a>
-<% end %>
-</p>
+  <p>Author: <%= @book.author.name %> </a></p>
+  <p>Subject(s):
+  <% @book.subjects.each do |subject| %>
+    <a href="/subjects/<%= subject.slug %>"><%= subject.name %></a>
+  <% end %>
+  </p>
+  <% end %>
 
 <br></br>
-<p><a href='/books/:slug/edit'>Edit Book</a></p>
+<p><a href="/books/<%=@book.id%>/edit">Edit Book </a></p>
 
 <form method="post" action="/books/<%=@book.id%>/delete">
   <input id="hidden" type="hidden" name="_method" value="DELETE">

@@ -12,8 +12,7 @@ class BooksController < ApplicationController
   else
     redirect to '/login'
   end
-  end
-
+end
 
 
   #add new book
@@ -44,38 +43,43 @@ class BooksController < ApplicationController
   #individual book,
   #is this necessary?!!
   get '/books/:id' do
-    if logged_in? || current_user
+    if logged_in?
       @book = Book.find_by_id(params[:id])
-      erb :'/books/show_book'
+      if @book && @book.user == current_user
+        erb :'/books/show_book'
+      else
+        redirect to '/books'
+      end
     else
       redirect to '/login'
     end
   end
 
   #edit book
- get '/books/:slug/edit' do
+ get '/books/:id/edit' do
    if logged_in?
      @book = Book.find_by_id(params[:id])
-       if @book.user_id == current_user.id
+     if @book && @book.user == current_user
          erb :'books/edit_book'
        else
          redirect to '/books'
-       end
+     end
    else
      redirect to '/login'
    end
  end
 
  #process editting
- patch '/books/:slug' do
+
+ patch '/books/:id' do
    if logged_in?
-     if params[:title] == "" || params[:author] == "" || params[:subject] == ""
-       redirect to '/books/#{params[:slug]}/edit'
+     if params[:name] == "" || params[:author] == "" || params[:subject] == ""
+       redirect to "/books/#{params[:id]}/edit"
    else
-      @book = Book.find_by_slug(params[:slug])
+      @book = Book.find_by_id(params[:id])
        if @book && @book.user == current_user
-         if @book.update(content: params[:content])
-           redirect to "/books/#{@book.slug}"
+         if @book.update(name: params[:name])
+           redirect to "/books/#{@book.id}"
          else
            redirect to "/books/#{@book.slug}/edit"
          end
@@ -87,6 +91,7 @@ class BooksController < ApplicationController
        redirect to '/login'
      end
  end
+
 
  #delete book
   delete '/books/:id/delete' do

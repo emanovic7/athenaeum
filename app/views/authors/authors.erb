@@ -1,12 +1,18 @@
 <h2>Authors</h2>
 
-<p>These are the Authors in your library:</p>
-<% @user.authors.all.each do |author| %>
-<ul>
-  <li>
-    <a href="/authors/<%=author.id%>>"><%= author.name %></a>
-  </li>
-</ul>
+<% if @user.authors.count == 0 %>
+  <%= "You have no authors in your library, add books here"%>
+  <p><a href='/books/new'>Add New Book</a></p>
+<% else %>
+  <p>These are the Authors in your library:</p>
+  <% @user.authors.all.each do |author| %>
+  <ul>
+    <li>
+      <a href="/authors/<%=author.id%>>"><%= author.name %></a>
+    </li>
+  </ul>
+  <% end %>
 <% end %>
+
 
 <p><a href='/home'>Home</a></p>

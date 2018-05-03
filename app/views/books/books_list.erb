@@ -15,12 +15,16 @@
   <ol>
     <li>
       Title: <a href="books/<%=book.id%>"><%= book.name %></a></br>
-      Author: <a href="authors/<%=book.author.id%>"><%= book.author.name %></a></br>
-      <p>Subject(s):
-      <% book.subjects.each do |subject| %>
-        <a href="/subjects/<%= subject.slug %>"><%= subject.name %></a>
+      <% if book.author == nil || book.subjects == nil%>
+        <p>Missing some information, edit <a href="/books/<%=book.id%>"><%=book.name%></p></a>
+      <% else %>
+        Author: <a href="authors/<%=book.author.id%>"><%= book.author.name %></a></br>
+        <p>Subject(s):
+          <% book.subjects.each do |subject| %>
+            <a href="/subjects/<%= subject.slug %>"><%= subject.name %></a>
+          <% end %>
+        </p>
       <% end %>
-      </p>
     </li>
   </ol>
 <% end %>

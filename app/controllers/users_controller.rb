@@ -17,8 +17,6 @@ class UsersController < ApplicationController
 
   end
 
-
-
           #Signing Up
           get '/register' do
             if !session[:user_id]
