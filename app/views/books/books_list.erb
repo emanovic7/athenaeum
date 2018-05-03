@@ -12,11 +12,13 @@
 
 
 <% @user.books.all.each do |book| %>
-  <ol>
+  <ul>
     <li>
       Title: <a href="books/<%=book.id%>"><%= book.name %></a></br>
-      <% if book.author == nil || book.subjects == nil%>
-        <p>Missing some information, edit <a href="/books/<%=book.id%>"><%=book.name%></p></a>
+      <% if book.author == nil %>
+        <p>Missing Author information, edit <a href="/books/<%=book.id%>"><%=book.name%></p></a>
+        <% elsif book.subjects == nil%>
+        <p>Missing Subjects information, edit <a href="/books/<%=@book.id%>"><%=book.name%></p></a>
       <% else %>
         Author: <a href="authors/<%=book.author.id%>"><%= book.author.name %></a></br>
         <p>Subject(s):
@@ -26,7 +28,7 @@
         </p>
       <% end %>
     </li>
-  </ol>
+  </ul>
 <% end %>
 
 <p><a href='/home'>Home</a></p>

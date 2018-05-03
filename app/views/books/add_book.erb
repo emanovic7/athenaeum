@@ -1,3 +1,8 @@
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %>
+
+
 <form action="/books/new" method="POST">
   <label>Book Title: </label></br>
     <input type="text" name="book title"></br>

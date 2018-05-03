@@ -1,8 +1,5 @@
-require 'rack-flash'
-
 
 class BooksController < ApplicationController
-  use Rack::Flash
 
   #get user's books
   get '/books' do
@@ -27,13 +24,16 @@ end
 #process submitted book info
   post '/books/new' do
     if logged_in?
-      @book = current_user.books.find_or_create_by(name: params["book title"])
-      @book.author = Author.find_or_create_by(name: params["author name"])
-      @book.subject_ids = params[:subjects] || @book.subject = params[:subject]
-      @book.save
-
-      flash[:message] = "New Book Added!"
-
+      if params["book title"] == "" || params["author name"] == ""
+        flash[:message] = "Fill in all contents"
+        redirect to '/books/new'
+      else
+        @book = current_user.books.find_or_create_by(name: params["book title"])
+        @book.author = Author.find_or_create_by(name: params["author name"])
+        @book.subject_ids = params[:subjects] || @book.subject = params[:subject]
+        @book.save
+        flash[:message] = "New Book Added!"
+      end
       erb :'/books/show_book'
     else
       redirect to '/login'
@@ -73,16 +73,15 @@ end
 
  patch '/books/:id' do
    if logged_in?
-     if params[:name] == "" || params[:author] == "" || params[:subject] == ""
+     if params[:name] == ""
        redirect to "/books/#{params[:id]}/edit"
    else
       @book = Book.find_by_id(params[:id])
        if @book && @book.user == current_user
-         if @book.update(name: params[:name])
-           redirect to "/books/#{@book.id}"
-         else
-           redirect to "/books/#{@book.slug}/edit"
-         end
+          @book.update(name: params["book title"])
+          @book.author = Author.find_or_create_by(name: params["author name"])
+          @book.save
+          erb :'books/show_book'
        else
          redirect to '/books'
        end
@@ -91,6 +90,7 @@ end
        redirect to '/login'
      end
  end
+
 
 
  #delete book

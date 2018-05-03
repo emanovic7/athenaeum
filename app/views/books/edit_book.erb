@@ -1,14 +1,13 @@
 <h2>Edit <%= @book.name %></h2>
 
 <form method="POST" action="/books/<%= @book.id %>">
+  <input id="hidden" type="hidden" name="_method" value="PATCH">
+
   <label for="title">Title:</label></br>
-  <input type="text" name="name" value="<%= @book.name %>"></br>
+  <input type="text" name="book title" value="<%= @book.name %>"></br>
 
   <label for="author">Author:</label></br>
-  <input type="text" name="name" value="<%= @book.author.name %>"></br>
-
-  <label for "subject">Subject:</label></br>
-  <input type="text" name="name" value="<%= @book.subjects.name %>"></br>
+  <input type="text" name="author name" value="<%= @book.author.name%>"></br>
 
 
   <input type="submit" value="Submit">

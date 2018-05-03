@@ -6,16 +6,17 @@
 <p>Current Book</p>
 <p>Title: <%= @book.name %></p>
 
-<% if @book.author == nil || @book.subjects == nil%>
-  <p>Missing some information, edit <a href="/books/<%=@book.id%>"><%=@book.name%></p></a>
-<% else %>
-
-  <p>Author: <%= @book.author.name %> </a></p>
-  <p>Subject(s):
-  <% @book.subjects.each do |subject| %>
-    <a href="/subjects/<%= subject.slug %>"><%= subject.name %></a>
-  <% end %>
-  </p>
+<% if @book.author == nil %>
+    <p>Missing Author information, edit <a href="/books/<%=@book.id%>"><%=@book.name%></p></a>
+  <% elsif @book.subjects == nil%>
+    <p>Missing Subjects information, edit <a href="/books/<%=@book.id%>"><%=@book.name%></p></a>
+  <%else%>
+    <p>Author: <%= @book.author.name %> </a></p>
+    <p>Subject(s):
+    <% @book.subjects.each do |subject| %>
+      <a href="/subjects/<%= subject.slug %>"><%= subject.name %></a>
+    <% end %>
+    </p>
   <% end %>
 
 <br></br>
