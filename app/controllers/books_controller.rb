@@ -30,7 +30,7 @@ end
       else
         @book = current_user.books.find_or_create_by(name: params["book title"])
         @book.author = Author.find_or_create_by(name: params["author name"])
-        @book.subject_ids = params[:subjects] || @book.subject = params[:subject]
+        @book.subject_ids = params[:subjects]
         @book.save
         flash[:message] = "New Book Added!"
       end
@@ -80,6 +80,7 @@ end
        if @book && @book.user == current_user
           @book.update(name: params["book title"])
           @book.author = Author.find_or_create_by(name: params["author name"])
+          @book.subject_ids = params[:subjects]
           @book.save
           erb :'books/show_book'
        else

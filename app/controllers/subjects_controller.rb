@@ -11,9 +11,9 @@ class SubjectsController < ApplicationController
  end
 
  #show subject by slug
- get '/subjects/:slug' do
+ get '/subjects/:id' do
    if logged_in? && @user = current_user
-     @subject = Subject.find_by_slug(params[:slug])
+     @subject = Subject.find_by_id(params[:id])
      erb :'/subjects/show_subject'
    end
  end

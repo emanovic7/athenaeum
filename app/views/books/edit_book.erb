@@ -9,6 +9,11 @@
   <label for="author">Author:</label></br>
   <input type="text" name="author name" value="<%= @book.author.name%>"></br>
 
+  <% Subject.all.each do |subject| %>
+   <label><%= subject.name %></label>
+   <input type="checkbox" name="subjects[]" value="<%= subject.id %>" id="<%= subject.name %>" <%='checked' if @book.subjects.include?(subject) %>>
+ <% end %>
+
 
   <input type="submit" value="Submit">
 </form>
