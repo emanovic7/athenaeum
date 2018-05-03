@@ -11,7 +11,7 @@
   <% elsif @book.subjects == nil%>
     <p>Missing Subjects information, edit <a href="/books/<%=@book.id%>"><%=@book.name%></p></a>
   <%else%>
-    <p>Author: <%= @book.author.name %> </a></p>
+    Author:<a href="/authors/<%= @book.author.id%>"> <%= @book.author.name %> </a>
     <p>Subject(s):
     <% @book.subjects.each do |subject| %>
       <a href="/subjects/<%= subject.slug %>"><%= subject.name %></a>
