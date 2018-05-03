@@ -1,5 +1,7 @@
 class Author < ActiveRecord::Base
 
+  validates :name, presence: true
+  
   has_many :books
   has_many :users, through: :books
   has_many :subjects, through: :author_subjects
